@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blank Text for Instagram — mini demo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; color: #222; }
+  h1 { font-size: 22px; }
+  textarea { width: 100%; min-height: 110px; padding: 10px; font-size: 16px; margin: 12px 0; box-sizing: border-box; }
+  button { padding: 8px 14px; font-size: 14px; cursor: pointer; }
+  .out { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 8px 0; white-space: pre-wrap; word-break: break-all; }
+  a { color: #7c3aed; }
+</style>
+</head>
+<body>
+<h1>Blank Text for Instagram — mini demo</h1>
+<p>Instagram deletes empty lines in a bio. Type your bio below, leave a blank line where you want a gap, and this demo fills each empty line with an invisible character so the gap stays. Everything runs in your browser. No account, no server.</p>
+<textarea id="bio" placeholder="Type your bio here. Leave a blank line for a gap.">Mei Ling
+Photography lover
+
+Based in Charlotte</textarea>
+<button id="make" type="button">Make blank lines</button>
+<button id="copy" type="button">Copy result</button>
+<div class="out" id="result"></div>
+<p>Want the full tool with more blank-text options? Try the <a href="https://instanamez.com/blank-text/">blank text tool</a>.</p>
+<script>
+var FILLER = "ㅤ";
+function makeBlank() {
+  var lines = document.getElementById("bio").value.split("\n");
+  var out = [];
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].trim() === "") { out.push(FILLER); }
+    else { out.push(lines[i]); }
+  }
+  document.getElementById("result").textContent = out.join("\n");
+}
+document.getElementById("make").onclick = makeBlank;
+document.getElementById("copy").onclick = async function () {
+  var btn = document.getElementById("copy");
+  try { await navigator.clipboard.writeText(document.getElementById("result").textContent); btn.textContent = "Copied"; }
+  catch (e) { btn.textContent = "Copy failed"; }
+  setTimeout(function () { btn.textContent = "Copy result"; }, 1500);
+};
+makeBlank();
+</script>
+</body>
+</html>
